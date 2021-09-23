@@ -20,18 +20,18 @@ class Forecast {
 
 }
 
-
-server.get('/weather', (req, res) => {
+// http://localhost:3005/getWeatherInfo?nameCity=Amman
+server.get('/getWeatherInfo', (req, res) => {
     try {
-        let wCity = req.query.namecity;
+        let wCity = req.query.nameCity;
 
-        let Infocity = weatherData.find((item) => {
+        let infoCity = weatherData.find((item) => {
             if (item.city_name === wCity) {
                 return item
             }
 
         });
-        let wArray = Infocity.data.map(element => {
+        let wArray = infoCity.data.map(element => {
             return new Forecast(element.datetime, element.weather.description);
 
         });
