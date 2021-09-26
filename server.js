@@ -60,12 +60,13 @@ function getWeatherHandler(req, res) {
 
 function getmovieHandler(req, res) {
     let movieQuery = req.query.city;
+    // https://api.themoviedb.org/3/search/movie?api_key=2fc7598c13abfeccf26f4b472a70dd95&query=Amman
     let url = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_API_KEY}&query=${movieQuery}`;
 
     axios.get(URL).then(movieResults => {
 
         let newArray = movieResults.data.results.map(element => {
-            return new AllMovie(element)
+            return new Movies(element)
         })
         res.send(newArray)
     }).catch(error => {
