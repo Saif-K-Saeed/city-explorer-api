@@ -22,9 +22,9 @@ function homeRouteHandler(req, res) {
 }
 
 class Forecast {
-    constructor(date, description) {
-        this.date = date;
-        this.description = description;
+    constructor(element) {
+        this.date = element.valid_date;
+        this.description = element.weather.description;
     }
 
 }
