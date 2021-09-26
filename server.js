@@ -29,25 +29,18 @@ class Forecast {
 
 }
 
-// class Movies {
-//     constructor(
-//         title,
-//         overview,
-//         released_on,
-//         average_votes,
-//         total_votes,
-//         popularity,
-//         poster_path
-//     ) {
-//         this.title = title;
-//         this.overview = overview;
-//         this.released_on = released_on;
-//         this.average_votes = average_votes;
-//         this.total_votes = total_votes;
-//         this.image_url = "https://image.tmdb.org/t/p/w500/" + poster_path;
-//         this.popularity = popularity;
-//     }
-// }
+class Movies {
+    constructor(element){
+        this.title = element.title;
+        this.overview= element.overview;
+        this.average_votes= element.vote_average;
+        this.total_votes = element.vote_count;
+        this.image_url = 'https://image.tmdb.org/t/p/w500' + element.poster_path;
+        this.popularity = element.popularity;
+        this.released_on = element.release_date;
+        
+    }
+}
 
 function getWeatherHandler(req, res) {
     let weatherQuery = req.query.city;
@@ -68,31 +61,21 @@ console.log(weatherQuery);
         })
 }
 
-// function getmovieHandler(req, res) {
-//     let movieQuery = req.query.cityName;
-//     let url = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_API_KEY}&query=${movieQuery}`;
-//     console.log(movieQuery);
-//     axios
-//         .get(url)
-//         .then((moviesData) => {
-//             res.status(200).send(
-//                 moviesData.data.results.map((movie) => {
-//                     return new Movies(
-//                         movie.title,
-//                         movie.overview,
-//                         movie.release_date,
-//                         movie.vote_average,
-//                         movie.vote_count,
-//                         movie.popularity,
-//                         movie.poster_path
-//                     );
-//                 })
-//             );
-//         })
-//         .catch((error) => {
-//             console.log(error);
-//         });
-// };
+function getmovieHandler(req, res) {
+    let movieQuery = req.query.city;
+    let url = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_API_KEY}&query=${movieQuery}`;
+    console.log(movieQuery);
+    axios.get(URL).then(movieResults => {
+    
+       let  newArray = movieResults.data.results.map(element => {
+               return new AllMovie(element)
+            })
+               res.send(newArray)
+           }).catch(error =>{
+               res.send(error)
+           })
+    
+    }
 
 function notFoundHandler(req, res) {
     res.status(404).send('NOT FOUND!!')
