@@ -63,7 +63,7 @@ function getmovieHandler(req, res) {
     // https://api.themoviedb.org/3/search/movie?api_key=2fc7598c13abfeccf26f4b472a70dd95&query=Amman
     let url = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.MOVIE_API_KEY}&query=${movieQuery}`;
 
-    axios.get(URL).then(movieResults => {
+    axios.get(url).then(movieResults => {
 
         let newArray = movieResults.data.results.map(element => {
             return new Movies(element)
